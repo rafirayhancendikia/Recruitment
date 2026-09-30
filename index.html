@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For Pricilia Agatha</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@300;400;500&family=Jost:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#140b0d;--paper:#f4ece1;--blush:#e9d3cb;--rose:#b56b73;--wine:#5b1f2f;--white:#fbf7f1;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif;--hand:'Caveat','Segoe Script',cursive;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--ink);color:var(--white);font-family:var(--sans);overflow:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.09;z-index:50;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+#dust{position:fixed;inset:0;z-index:0}
+#glow{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 50% 35%,#3a1620 0%,transparent 65%);transition:opacity 2s}
+#stage{position:fixed;inset:0;z-index:2;display:flex;padding:64px 18px 64px;overflow-y:auto;transition:opacity 1.1s ease-in-out}
+#stage.out{opacity:0}
+.wrap{margin:auto;text-align:center;width:100%;max-width:620px}
+.serif{font-family:var(--serif);font-weight:300}
+.big{font-size:clamp(28px,6vw,46px);line-height:1.25;margin:.4em 0}
+.small{font-size:13px;letter-spacing:.22em;color:#c9b5ad;font-weight:300}
+.line{opacity:0;transition:opacity 2.2s ease-in-out}.line.on{opacity:1}
+.btn{font:400 12px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--white);background:transparent;border:1px solid #fbf7f180;padding:17px 34px;min-height:48px;cursor:pointer;transition:all .8s ease-in-out;margin-top:28px}
+.btn:hover:not(:disabled){background:var(--white);color:var(--wine)}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn:focus-visible,.cell:focus-visible{outline:2px solid var(--blush);outline-offset:3px}
+#prog{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;z-index:5;display:flex;justify-content:center;gap:clamp(10px,3vw,30px);font-size:10px;letter-spacing:.2em;transition:opacity 1.5s}
+#prog span{opacity:.3;transition:opacity 1s}#prog .cur,#prog .ok{opacity:.9}#prog .cur{color:var(--blush)}
+#music{position:fixed;left:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;font:300 11px var(--sans);letter-spacing:.15em;color:#fbf7f1a0;background:none;border:0;padding:10px 6px;cursor:pointer}
+#music:hover{color:var(--white)}#addsong{display:none;position:fixed;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;font:300 11px var(--sans);color:#fbf7f180;padding:10px 6px;cursor:pointer;letter-spacing:.1em}
+/* envelope */
+.env{position:relative;width:min(78vw,340px);height:min(52vw,226px);margin:60px auto 0;cursor:pointer;perspective:900px;transition:transform 1.6s ease-in-out,opacity 1.2s;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+.env .back{position:absolute;inset:0;background:#b98f84;border-radius:3px;box-shadow:0 40px 70px #000c}
+.env .paper{position:absolute;left:7%;right:7%;top:5%;height:88%;background:var(--white);transition:transform 1.5s ease-in-out .6s}
+.env .front{position:absolute;inset:0;background:#d6b3a8;clip-path:polygon(0 100%,0 30%,50% 64%,100% 30%,100% 100%);z-index:3}
+.env .flap{position:absolute;left:0;right:0;top:0;height:62%;background:#e3c6bb;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1s ease-in-out;z-index:4}
+.env .seal{position:absolute;left:calc(50% - 13px);top:52%;width:26px;height:26px;border-radius:50%;background:var(--wine);z-index:5;box-shadow:0 2px 6px #0008;transition:opacity .5s}
+.env .to{position:absolute;left:0;right:0;bottom:13%;z-index:6;font:500 clamp(20px,5vw,26px) var(--hand);color:var(--wine);transition:opacity .6s}
+.env.open{animation:none}.env.open .flap{transform:rotateX(180deg);z-index:1}.env.open .paper{transform:translateY(-52%)}.env.open .seal,.env.open .to{opacity:0}
+.sheet{background:var(--paper);color:#3a2328;width:min(94vw,560px);max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);overflow-y:auto;padding:38px clamp(22px,6vw,42px) 30px;text-align:left;box-shadow:0 40px 80px #000c;font:400 clamp(21px,4.6vw,25px)/1.5 var(--hand);animation:rise 2s ease-in-out both;background-image:repeating-linear-gradient(transparent 0 35px,#b56b7310 35px 36px)}
+@keyframes rise{from{opacity:0;transform:translateY(40px) scale(.96)}}
+.sheet p{margin:0 0 1em}.rv{opacity:0;filter:blur(4px);transform:translateY(8px);transition:all 1.6s ease-in-out}.rv.on{opacity:1;filter:none;transform:none}
+.sheet .more{font:400 12px var(--sans);letter-spacing:.25em;color:var(--rose);background:none;border:0;padding:14px 0;cursor:pointer;display:block;margin:auto}
+.sheet .btn{color:var(--wine);border-color:var(--wine);display:block;margin:14px auto 4px}.sheet .btn:hover:not(:disabled){background:var(--wine);color:var(--white)}
+.polaroid{background:#fff;padding:8px 8px 26px;width:150px;transform:rotate(-3deg);margin:6px auto 18px;box-shadow:0 8px 18px #0004}.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+/* crossword */
+.card{background:var(--paper);color:#2b171c;padding:clamp(12px,3vw,26px);box-shadow:0 40px 80px #000c;max-width:100%;transition:opacity 1.8s ease-in-out}
+.grid{display:grid;gap:2px;margin:auto;width:max-content}
+.cell{--s:min(7.6vw,40px);width:var(--s);height:var(--s);position:relative;background:#e3d3c8;border:0;padding:0;font:500 calc(var(--s)*.52) var(--serif);color:var(--wine);text-align:center;cursor:pointer;transition:background .6s,box-shadow .8s}
+.cell.blk{background:transparent;pointer-events:none}.cell.hl{background:#e9bfb9}.cell.cur{background:var(--rose);color:#fff}
+.cell.ok{background:#f3dcc4;box-shadow:0 0 14px #d9a06a99}.cell i{position:absolute;top:1px;left:3px;font:400 9px var(--sans);color:#8a6a6a;font-style:normal}
+.shake{animation:shk .5s ease-in-out}@keyframes shk{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.clue{font:italic 400 clamp(18px,4vw,22px) var(--serif);min-height:2.6em;margin:0 0 12px;color:var(--wine)}
+.clues{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;font-size:13px;margin-top:16px;line-height:1.5}
+.clues h4{margin:0 0 4px;font:400 11px var(--sans);letter-spacing:.2em;color:var(--rose)}
+.clues div{cursor:pointer;padding:3px 0;color:#3a2328}.clues div.done{text-decoration:line-through;opacity:.45}
+#kb{position:fixed;opacity:0;pointer-events:none;top:0}
+/* video */
+.frame{position:relative;width:min(94vw,calc((100vh - 230px)*.75),calc((100dvh - 230px)*.75),520px);aspect-ratio:3/4;margin:0 auto;background:#000;border:1px solid #fbf7f126;border-radius:6px;overflow:hidden;box-shadow:0 40px 90px #000;animation:rise 2.4s ease-in-out both}
+.frame video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+.playb{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;border:1px solid #fbf7f1aa;background:#0006;color:var(--white);font-size:22px;cursor:pointer;transition:opacity .8s}
+.fs{position:absolute;right:10px;bottom:10px;background:#0006;border:0;color:#fff;padding:8px 10px;font-size:11px;letter-spacing:.15em;cursor:pointer;opacity:.7}
+.spin{position:absolute;inset:0;margin:auto;width:28px;height:28px;border:1px solid #fff4;border-top-color:#fff;border-radius:50%;animation:sp 1s linear infinite;display:none}@keyframes sp{to{transform:rotate(360deg)}}
+/* gift */
+.box{position:relative;width:170px;height:170px;margin:30px auto 10px;transition:transform 2.2s ease-in-out}.box.near{transform:scale(1.35)}
+.box .bd{position:absolute;left:0;right:0;bottom:0;height:105px;background:var(--wine);box-shadow:0 30px 50px #000c}
+.box .lid{position:absolute;left:-8px;right:-8px;top:38px;height:32px;background:#74293d;transition:transform 2s ease-in-out;z-index:2}
+.box .rb{position:absolute;left:calc(50% - 10px);width:20px;top:38px;bottom:0;background:var(--blush);z-index:3;opacity:.85}
+.box .lid:after{content:"";position:absolute;left:calc(50% - 10px);width:20px;top:0;bottom:0;background:var(--blush)}
+.box.op .lid{transform:translate(18px,-70px) rotate(14deg);opacity:.0;transition:transform 2.2s ease-in-out,opacity 2.4s 1s}.box.op{animation:none}.box.op .rb{opacity:0;transition:opacity 1s}
+.dim #glow{opacity:.25}
+.gg{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:10px;width:min(92vw,540px);margin:0 auto;animation:rise 2.4s ease-in-out both}
+.ph{background:#fbf7f1;padding:5px 5px 14px;aspect-ratio:3/4;box-shadow:0 10px 24px #0008;transform:rotate(var(--r));overflow:hidden;position:relative}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}.ph:before{content:"your photo";position:absolute;inset:5px 5px 14px;background:#e9d3cb;color:#9a7a78;font:italic 13px var(--serif);display:flex;align-items:center;justify-content:center}.ph img{position:relative}
+.tk{grid-area:2/2;background:var(--paper);color:var(--wine);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;border:1px dashed var(--rose);outline:6px solid var(--paper);box-shadow:0 14px 36px #000a}
+.tk b{font:500 clamp(18px,5vw,30px)/1.1 var(--serif);margin:0}.tk span{font:300 11px var(--sans);letter-spacing:.14em;margin-top:8px;color:#7a4a52}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+@media(max-width:520px){.clues{grid-template-columns:1fr}}
+</style></head><body>
+<canvas id="dust"></canvas><div id="glow"></div>
+<nav id="prog" aria-label="Progress" style="opacity:0"></nav>
+<main id="stage" aria-live="polite"></main>
+<button id="music" aria-label="Toggle music">♫ Those Eyes</button>
+<label id="addsong">♫ add song file<input type="file" accept="audio/*" hidden id="songfile"></label>
+<input id="kb" autocapitalize="characters" autocomplete="off" aria-hidden="true" tabindex="-1">
+<script>const ASSET={photos:['assets/photos/photo01.jpg', 'assets/photos/photo02.jpg', 'assets/photos/photo03.jpg', 'assets/photos/photo04.jpg', 'assets/photos/photo05.jpg', 'assets/photos/photo06.jpg', 'assets/photos/photo07.jpg', 'assets/photos/photo08.jpg'],song:'assets/those-eyes.mp3',video:'assets/pricilia-birthday-video.mp4'};</script>
+<script>
+/* ============ EDIT YOUR CONTENT HERE ============ */
+const CONFIG={
+ name:'Pricilia Agatha',
+ // Audio: lagu sudah tertanam di file ini (ASSET.song)
+ audio:ASSET.song, // New West - Those Eyes (Home Session), embedded
+ letter:{
+  greeting:'Dear my piña,',
+  paragraphs:[
+  "Happy 23rd Birthday, my dearest Pricilia Agatha. Today is a celebration of you, and my heart is incredibly full just thinking about the beautiful life we have shared so far. Looking back at everything we have experienced together, I am overwhelmed with happiness and gratitude for every single memory we have created. Every moment spent by your side feels like a gift, and I want you to know just how much I cherish the bond we have built.",
+  "I am so deeply thankful for all the activities and routines that have become ours. Every place we go together holds such a special meaning to me. Even when we were tested by distance during that short LDR chapter when you were in the UK, it only proved how strong we are. The miles between us felt a little less daunting because of our constant connection, and looking forward to your silly, sweet view once messages became one of my absolute favorite habits. You made even the simplest, everyday routines feel like the most romantic adventures.",
+  "Beyond the places we've been and the things we've done, I want to take a moment to truly appreciate the beautiful person you are and the endless attention you give me. I notice it all, Pricilia. I feel so incredibly loved when you make time for our dates despite your busy schedule, and I am always moved by the effort you put into keeping our spark alive, even across different time zones. You always remember the little details, you constantly check up on me to ensure I am having a good day, and your gentle, unwavering presence makes me feel so safe and deeply cared for. Your affection is a constant comfort, and I am so lucky to be the one who gets to experience it.",
+  "As you step into your 23rd year, my greatest wish is for you to grow even wiser and more beautifully into the person you are meant to be. May this new chapter bring you profound peace, clarity, and the courage to navigate whatever lies ahead. I pray that absolutely everything you are aspiring for and dreaming of comes true, because you deserve nothing less than the world. I believe in you with all my heart, and I will always be right here cheering you on. Here is to more adventures, more laughter, and a lifetime of loving you."],
+  signoff:'Yours always,',from:'Rafi Rayhan Cendekia',
+  photo:{afterParagraph:2,src:'assets/photos/photo01.jpg'} // set src:'' to hide
+ },
+ crossword:{
+  secret:'YOU KNOW ME BETTER THAN ANYONE.', // [SECRET MESSAGE] shown on completion
+  // r/c = start row/column in the grid, dir = across|down. Words must intersect on matching letters.
+  words:[
+   {clue:'Our first hotel',answer:'HARRIS',r:1,c:0,dir:'across'},
+   {clue:'Our first date',answer:'PVJ',r:3,c:8,dir:'across'},
+   {clue:'Our favorite movie',answer:'OBSESSION',r:5,c:0,dir:'across'},
+   {clue:'Our favorite activity',answer:'SEX',r:5,c:5,dir:'down'},
+   {clue:'Your favorite flower',answer:'LILIES',r:0,c:4,dir:'down'},
+   {clue:'Your favorite food',answer:'SALMON',r:5,c:2,dir:'down'},
+   {clue:'Your favorite color',answer:'PINK',r:3,c:8,dir:'down'},
+   {clue:'Your favorite boy',answer:'RAFI',r:2,c:6,dir:'down'}]
+ },
+ video:{src:ASSET.video,poster:'', // video tertanam di file ini
+  allowSkipIfMissing:false},
+ gift:{title:'ONE WISH GRANTED',sub:'Valid until December 2026',
+  photos:ASSET.photos, // 8 foto, tertanam di file ini
+  customHTML:''} // optional: a link, QR code, location... any HTML shown under the card
+};
+/* ================================================== */
+const R=x=>typeof x==='function'?x():x;
+const $=(s,r=document)=>r.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,ms)),st=$('#stage');
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const NAMES=['LETTER','CROSSWORD','VIDEO','GIFT'];
+let ch=0;try{ch=+localStorage.getItem('pa_ch')||0}catch(e){} if(ch<0||ch>5)ch=0;
+/* --- audio --- */
+const au=new Audio();au.loop=true;au.preload='auto';au.setAttribute('playsinline','');
+let muted=false,level=.2,base=.2,started=false,volOK=true;
+try{muted=localStorage.getItem('pa_mute')==='1'}catch(e){}
+try{au.volume=.5;volOK=Math.abs(au.volume-.5)<.01}catch(e){volOK=false}
+if(volOK)au.volume=0;
+const SL=[].concat(CONFIG.audio);let si=0;au.src=R(SL[0]);au.onerror=()=>{if(++si<SL.length){au.src=R(SL[si]);if(started)au.play().catch(()=>{})}else{started=false;$('#addsong').style.display='block'}};
+$('#songfile').onchange=e=>{const f=e.target.files[0];if(f){au.src=URL.createObjectURL(f);$('#addsong').style.display='none';startMusic()}};
+function ui(){$('#music').style.opacity=muted?.45:1;$('#music').textContent=(muted?'♫̸ ':'♫ ')+'Those Eyes'}
+function fade(){clearInterval(fade.t);
+ if(!volOK){au.muted=muted;if(!started)return;if(level<=.1){if(!au.paused)au.pause()}else if(au.paused)au.play().catch(()=>{});return}
+ fade.t=setInterval(()=>{const t=muted?0:level,d=t-au.volume;if(Math.abs(d)<.01){au.volume=t;clearInterval(fade.t)}else au.volume=Math.max(0,Math.min(1,au.volume+d*.06))},60)}
+function startMusic(){if(started&&!au.paused)return;started=true;au.muted=volOK?false:muted;const p=au.play();if(p&&p.catch)p.catch(()=>{started=false});fade()}
+function bump(v=.34){level=v;fade();setTimeout(()=>{level=base;fade()},4500)}
+$('#music').onclick=()=>{muted=!muted;try{localStorage.setItem('pa_mute',muted?'1':'0')}catch(e){}ui();if(started)fade()};ui();
+/* musik mulai di sentuhan/klik/tombol pertama di halaman mana pun (termasuk saat halaman dibuka ulang di tengah cerita) */
+const unlock=()=>{if(!au.error)startMusic();if(started&&!au.paused){['pointerdown','touchstart','touchend','click','keydown'].forEach(ev=>removeEventListener(ev,unlock,true))}};
+['pointerdown','touchstart','touchend','click','keydown'].forEach(ev=>addEventListener(ev,unlock,true));
+/* chime */
+let ac;function chime(ok=true){if(muted)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();[659,880,1175].slice(0,ok?3:0).forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,ac.currentTime+i*.11);g.gain.linearRampToValueAtTime(.06,ac.currentTime+i*.11+.03);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+i*.11+1.1);o.connect(g).connect(ac.destination);o.start(ac.currentTime+i*.11);o.stop(ac.currentTime+i*.11+1.2)})}catch(e){}}
+/* --- floating dust --- */
+const cv=$('#dust'),cx=cv.getContext('2d');let P=[],burst=0;
+function rs(){cv.width=innerWidth;cv.height=innerHeight}rs();addEventListener('resize',rs);
+for(let i=0;i<38;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.6+.3,v:Math.random()*.2+.05,a:Math.random()*.4+.1});
+(function loop(){cx.clearRect(0,0,cv.width,cv.height);P.forEach((p,i)=>{p.y-=p.v*(1+burst*3);p.x+=Math.sin(p.y/60+i)*.15;if(p.y<-5){p.y=cv.height+5;p.x=Math.random()*cv.width}cx.fillStyle=`rgba(233,211,203,${p.a*(1+burst)})`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()});requestAnimationFrame(loop)})();
+/* --- flow --- */
+function prog(){const n=$('#prog');n.style.opacity=(ch>=1&&ch<=4)?1:0;n.innerHTML=NAMES.map((t,i)=>{const k=i+1,c=ch>k?'ok':ch===k?'cur':'';return`<span class="${c}">${String(k).padStart(2,'0')} ${t} ${ch>k?'✓':ch===k?'●':'○'}</span>`}).join('')}
+function go(n){st.classList.add('out');base=.2;bump();setTimeout(()=>{ch=n;try{localStorage.setItem('pa_ch',n)}catch(e){}prog();document.body.classList.remove('dim');st.scrollTop=0;V[n]();requestAnimationFrame(()=>st.classList.remove('out'))},1150)}
+async function seq(ids,gap=2600){for(const id of ids){const e=$('#'+id);if(!e)return;e.classList.add('on');await sleep(gap)}}
+/* ---- 0 intro ---- */
+async function intro(){st.innerHTML=`<div class="wrap"><p class="small line on" style="margin-bottom:60px">FOR ${CONFIG.name.toUpperCase()}<br><span style="letter-spacing:.1em;font-style:italic;font-family:var(--serif);font-size:16px">A little world I made for you.</span></p>
+<p class="serif big line" id="a">Hey, ${CONFIG.name.split(' ')[0]}.</p><p class="serif big line" id="b">I made something for you.</p><p class="serif big line" id="c">Not a gift you can hold…</p><p class="serif big line" id="d">…but a little world you can explore.</p><button class="btn line" id="e">Enter</button></div>`;
+ $('#e').onclick=()=>{startMusic();go(1)};await sleep(1800);await seq(['a','b','c','d'],2800);$('#e').classList.add('on')}
+/* ---- 1 letter ---- */
+function letter(){st.innerHTML=`<div class="wrap"><p class="small line on">CLICK THE ENVELOPE</p><div class="env" id="env" tabindex="0" role="button" aria-label="Open the letter"><div class="back"></div><div class="paper"></div><div class="front"></div><div class="flap"></div><div class="seal"></div><div class="to">To: ${CONFIG.name}</div></div></div>`;
+ const env=$('#env'),open=async()=>{env.onclick=null;env.classList.add('open');bump(.3);await sleep(2600);env.style.opacity=0;env.style.transform='translateY(80px) scale(1.1)';await sleep(900);sheet()};env.onclick=open;env.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')open()}}
+function sheet(){const L=CONFIG.letter,ps=L.paragraphs;let html=`<p class="rv on">${esc(L.greeting)}</p>`;
+ ps.forEach((p,i)=>{html+=`<p class="rv ${i?'':'on'}" data-i="${i}">${esc(p)}</p>`;if(L.photo.src&&i+1===L.photo.afterParagraph)html+=`<div class="polaroid rv" data-i="${i}"><img src="${L.photo.src}" alt="" onerror="this.closest('.polaroid').remove()"></div>`});
+ html+=`<button class="more" id="more">KEEP READING ↓</button><div class="rv" id="end"><p>${esc(L.signoff)}<br>${esc(L.from)}</p><p style="text-align:center;font-size:.9em;margin-top:1.4em">There's still something waiting for you.</p></div><button class="btn" id="turn" disabled>Turn the page</button>`;
+ st.innerHTML=`<div class="wrap"><div class="sheet" id="sh">${html}</div></div>`;const sh=$('#sh');let k=0;
+ const show=()=>{k++;sh.querySelectorAll(`[data-i="${k}"]`).forEach(e=>e.classList.add('on'));const last=k>=ps.length-1;
+  setTimeout(()=>sh.scrollTo({top:sh.scrollHeight,behavior:'smooth'}),400);if(last){$('#more').style.display='none';$('#end').classList.add('on');$('#turn').disabled=false}else setTimeout(()=>{sh.scrollBy({top:200,behavior:'smooth'})},50)};
+ $('#more').onclick=()=>{const n=sh.querySelector(`p[data-i="${k+1}"]`);n.classList.add('on');sh.querySelectorAll(`.polaroid[data-i="${k+1}"]`).forEach(e=>e.classList.add('on'));k++;if(k>=ps.length-1){$('#more').style.display='none';$('#end').classList.add('on');$('#turn').disabled=false}setTimeout(()=>n.scrollIntoView({behavior:'smooth',block:'center'}),200)};
+ $('#turn').onclick=async()=>{$('#turn').disabled=true;st.innerHTML=`<div class="wrap"><p class="serif big line on">Chapter 01 complete.</p></div>`;await sleep(2400);go(2)}}
+/* ---- 2 crossword ---- */
+function cross(){const W=CONFIG.crossword.words.map(w=>({...w,cells:[],done:false}));const cells={};let R=0,C=0;
+ W.forEach((w,i)=>{for(let k=0;k<w.answer.length;k++){const r=w.r+(w.dir==='down'?k:0),c=w.c+(w.dir==='across'?k:0),key=r+','+c;cells[key]=cells[key]||{r,c,ch:w.answer[k],ws:[],val:''};cells[key].ws.push(i);w.cells.push(key);R=Math.max(R,r);C=Math.max(C,c)}});
+ let n=0;Object.values(cells).sort((a,b)=>a.r-b.r||a.c-b.c).forEach(ce=>{const s=W.filter(w=>w.r===ce.r&&w.c===ce.c);if(s.length){ce.num=++n;s.forEach(w=>w.num=n)}});
+ let aw=0,ci=0;const cl=(d)=>W.map((w,i)=>({w,i})).filter(o=>o.w.dir===d).sort((a,b)=>a.w.num-b.w.num).map(o=>`<div data-w="${o.i}">${o.w.num}. ${esc(o.w.clue)} <span style="opacity:.5">(${o.w.answer.length})</span></div>`).join('');
+ let g='';for(let r=0;r<=R;r++)for(let c=0;c<=C;c++){const ce=cells[r+','+c];g+=ce?`<button class="cell" data-k="${r},${c}" aria-label="Row ${r+1} column ${c+1}">${ce.num?`<i>${ce.num}</i>`:''}<span></span></button>`:`<div class="cell blk"></div>`}
+ st.innerHTML=`<div class="wrap" style="max-width:720px"><p class="small" style="margin-bottom:10px">a little puzzle about us</p><div class="card" id="card"><p class="clue" id="clue">Tap a square to begin.</p><div class="grid" id="grid" style="grid-template-columns:repeat(${C+1},auto)">${g}</div><div class="clues"><div><h4>ACROSS</h4>${cl('across')}</div><div><h4>DOWN</h4>${cl('down')}</div></div></div><div id="fin"></div></div>`;
+ const kb=$('#kb'),ce=k=>$(`[data-k="${k}"]`);
+ const paint=()=>{const w=W[aw];Object.keys(cells).forEach(k=>{const e=ce(k),c=cells[k];e.className='cell'+(c.ws.some(i=>W[i].done)?' ok':'');e.firstElementChild.textContent=c.ws.some(i=>W[i].done)?c.ch:c.val});w.cells.forEach(k=>ce(k).classList.add('hl'));ce(w.cells[ci]).classList.add('cur');$('#clue').textContent=`${w.num} ${w.dir} — ${w.clue}`;document.querySelectorAll('.clues div[data-w]').forEach(d=>d.classList.toggle('done',W[d.dataset.w].done))};
+ const solved=k=>cells[k].ws.some(i=>W[i].done),firstOpen=(w,from=0)=>{for(let j=from;j<w.cells.length;j++)if(!solved(w.cells[j]))return j;return -1};
+ const sel=(i,k)=>{aw=i;ci=(k===undefined)?0:k;paint();kb.focus({preventScroll:true})};
+ const nextOpen=()=>{const o=W.findIndex(w=>!w.done);return o};
+ document.querySelectorAll('.clues div[data-w]').forEach(d=>d.onclick=()=>sel(+d.dataset.w));
+ document.querySelectorAll('button.cell').forEach(b=>b.onclick=()=>{const k=b.dataset.k,c=cells[k];let i=c.ws.includes(aw)&&c.ws.length>1&&W[aw].cells.indexOf(k)===ci?c.ws.find(x=>x!==aw):(c.ws.includes(aw)?aw:c.ws[0]);sel(i,W[i].cells.indexOf(k))});
+ const type=async chr=>{const w=W[aw];if(w.done)return;
+  const L=w.cells.length;let j=ci,placed=false;
+  /* kotak yang sudah terisi dari kata lain: boleh diketik ulang hurufnya (dilewati), atau langsung diskip */
+  if(solved(w.cells[j])){if(chr===cells[w.cells[j]].ch){ci=Math.min(j+1,L-1);placed=true}else{j=firstOpen(w,j);if(j<0)j=firstOpen(w,0);if(j<0)return}}
+  if(!placed){cells[w.cells[j]].val=chr;ci=Math.min(j+1,L-1)}
+  const full=w.cells.every(k=>solved(k)||cells[k].val);
+  if(!full){const e=w.cells.findIndex(k=>!solved(k)&&!cells[k].val);if(e>=0&&(ci===j||solved(w.cells[ci])&&firstOpen(w,ci)<0))ci=e}
+  paint();
+  if(!full)return;
+  const ok=w.cells.every(k=>solved(k)||cells[k].val===cells[k].ch);
+  if(ok){w.done=true;let more=true;while(more){more=false;W.forEach(x=>{if(!x.done&&x.cells.every(solved)){x.done=true;more=true}})}
+   Object.keys(cells).forEach(k=>{if(solved(k))cells[k].val=''});chime();paint();
+   if(W.every(x=>x.done))return finish();
+   await sleep(700);const o=nextOpen();if(o>=0)sel(o)}
+  else{w.cells.forEach(k=>ce(k).classList.add('shake'));await sleep(600);
+   w.cells.forEach(k=>{ce(k).classList.remove('shake');if(!solved(k))cells[k].val=''});ci=0;paint()}};
+ kb.onkeydown=e=>{if(e.key==='Backspace'){e.preventDefault();const w=W[aw];if(w.done)return;const cur=cells[w.cells[ci]];if(!solved(w.cells[ci])&&cur.val)cur.val='';else{let p=ci-1;while(p>=0&&solved(w.cells[p]))p--;if(p>=0){ci=p;cells[w.cells[p]].val=''}}paint()}else if(e.key==='ArrowRight'||e.key==='ArrowDown'){ci=Math.min(ci+1,W[aw].cells.length-1);paint()}else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){ci=Math.max(ci-1,0);paint()}else if(/^[a-zA-Z]$/.test(e.key)){e.preventDefault();type(e.key.toUpperCase())}};
+ kb.oninput=()=>{const v=kb.value.replace(/[^a-zA-Z]/g,'');kb.value='';if(v)type(v.slice(-1).toUpperCase())};
+ async function finish(){await sleep(1200);const card=$('#card');card.style.opacity=0;bump(.34);await sleep(1900);card.innerHTML=`<p class="serif big" style="color:var(--wine);margin:1em 0">${esc(CONFIG.crossword.secret)}</p>`;card.style.opacity=1;await sleep(3200);$('#fin').innerHTML=`<p class="serif big" style="margin-top:40px">Chapter 02 complete.</p><button class="btn" id="nx">One more thing</button>`;$('#nx').onclick=()=>go(3);$('#fin').scrollIntoView({behavior:'smooth'})}
+ sel(0)}
+/* ---- 3 video ---- */
+function video(){const v=CONFIG.video;st.innerHTML=`<div class="wrap" style="max-width:900px"><p class="small" style="margin-bottom:14px">SOMETHING I MADE FOR YOU</p><p class="serif big line" id="t1" style="margin:0">Press play when you're ready.</p><p class="serif line" id="t2" style="margin:0 0 18px;font-size:20px;font-style:italic;color:#c9b5ad">Take your time.</p>
+ <div class="frame" id="fr"><video id="vid" playsinline preload="metadata" ${v.poster?`poster="${v.poster}"`:''} src="${R([].concat(v.src)[0])}"></video><div class="spin" id="sp"></div><button class="playb" id="pl" aria-label="Play video">▶</button><button class="fs" id="fs" aria-label="Fullscreen">FULLSCREEN</button></div>
+ <div id="after" style="min-height:60px"></div></div>`;
+ const vd=$('#vid');setTimeout(()=>$('#t1').classList.add('on'),600);setTimeout(()=>$('#t2').classList.add('on'),3000);
+ const tog=()=>{if(vd.paused){vd.play();$('#pl').style.opacity=0;base=.06;level=.06;fade()}else{vd.pause();$('#pl').style.opacity=1;base=.2;level=.2;fade()}};
+ $('#pl').onclick=tog;vd.onclick=tog;vd.onwaiting=()=>$('#sp').style.display='block';vd.onplaying=()=>$('#sp').style.display='none';
+ $('#fs').onclick=()=>{const f=$('#fr');(f.requestFullscreen||f.webkitRequestFullscreen||(()=>vd.webkitEnterFullscreen&&vd.webkitEnterFullscreen())).call(f)};
+ vd.onpause=()=>{if(!vd.ended){$('#pl').style.opacity=1;base=.2;level=.2;fade()}};
+ vd.onended=async()=>{base=.2;level=.2;fade();$('#pl').style.opacity=0;$('#after').innerHTML=`<p class="serif big line" id="x1">So… that's not the end.</p><p class="serif big line" id="x2">I saved one last thing for you.</p><button class="btn line" id="x3">Open the final chapter</button>`;$('#x3').onclick=()=>go(4);$('#after').scrollIntoView({behavior:'smooth'});await seq(['x1','x2'],2400);$('#x3').classList.add('on')};
+ let vi=0;const vl=[].concat(v.src);vd.onerror=()=>{if(++vi<vl.length){vd.src=R(vl[vi]);vd.load();return}$('#pl').style.display='none';$('#sp').style.display='none';$('#fr').insertAdjacentHTML('beforeend',`<p style="position:absolute;inset:0;margin:auto;height:fit-content;padding:20px;color:#c9b5ad;font:italic 18px var(--serif)">Your video will live here.<br><small style="font:12px var(--sans)">Video tidak bisa dimuat — coba buka lewat Chrome atau Safari.</small></p>`);if(v.allowSkipIfMissing){$('#after').innerHTML=`<button class="btn" id="dev">Preview: video finished</button>`;$('#dev').onclick=()=>vd.onended()}}}
+/* ---- 4 gift ---- */
+async function gift(){st.innerHTML=`<div class="wrap"><div id="sc"><div class="box" id="bx"><div class="bd"></div><div class="lid"></div><div class="rb"></div></div><p class="serif big line" id="g1">You've made it this far.</p><p class="serif big line" id="g2">Are you ready?</p><button class="btn line" id="go">Open it</button></div><div id="rv"></div></div>`;
+ $('#go').onclick=async()=>{$('#go').disabled=true;document.body.classList.add('dim');$('#bx').classList.add('near');bump(.42);await sleep(2200);$('#bx').classList.add('op');burst=1;await sleep(3200);burst=.3;reveal()};
+ await sleep(1200);await seq(['g1','g2'],2400);$('#go').classList.add('on')}
+async function reveal(){const G=CONFIG.gift;$('#sc').style.display='none';let ph=[];for(let i=0;i<8;i++){const s=G.photos[i%G.photos.length]||'';ph.push(`<div class="ph" style="--r:${(i%3-1)*2.5}deg"><img src="${s}" alt="" onerror="this.remove()"></div>`)}
+ const grid=[...ph.slice(0,3),ph[3],`<div class="tk"><b>${esc(G.title)}</b><span>${esc(G.sub)}</span></div>`,ph[4],...ph.slice(5,8)];
+ $('#rv').innerHTML=`<div class="gg">${grid.join('')}</div>${G.customHTML?`<div style="margin-top:22px">${G.customHTML}</div>`:''}<div style="margin-top:38px"><p class="serif big line" id="h1">Happy Birthday, Pricilia.</p><p class="serif big line" id="h2">Thank you for being part of my story.</p><p class="serif big line" id="h3" style="font-style:italic">And if I could choose again,<br>I'd still choose you.</p><button class="btn line" id="h4">Continue</button></div>`;
+ $('#h4').onclick=()=>go(5);await sleep(3500);await seq(['h1','h2','h3'],3400);$('#h4').classList.add('on')}
+/* ---- 5 finale ---- */
+async function finale(){st.innerHTML=`<div class="wrap"><p class="serif line" id="f1" style="font-size:clamp(34px,9vw,64px);letter-spacing:.3em;margin:0">THE END</p><p class="serif line" id="f2" style="font-size:22px;font-style:italic;color:#c9b5ad">Or maybe just the beginning.</p><p class="small line" id="f3" style="margin-top:50px">Made with love, for ${CONFIG.name}.</p><p class="line" id="f4" style="font-size:26px;color:var(--rose);margin:10px">♡</p><button class="btn line" id="f5">Replay our story</button></div>`;
+ $('#f5').onclick=()=>{try{localStorage.setItem('pa_ch',0)}catch(e){}go(0)};await sleep(1500);await seq(['f1','f2','f3','f4'],2600);$('#f5').classList.add('on')}
+const V=[intro,letter,cross,video,gift,finale];
+prog();V[ch]();
+</script></body></html>
