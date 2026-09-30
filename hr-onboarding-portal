@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Verification Portal</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding-top: 10%; transition: background 1s, color 1s; }
+    .hidden { display: none !important; }
+    .corporate { background-color: #f4f6f8; color: #333; }
+    .party { background-color: #1a1a1a; color: #fff; }
+    .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .party .container { background: #333; box-shadow: 0 4px 15px rgba(255,215,0,0.5); border: 2px solid #ffd700; }
+    input { width: 80%; padding: 10px; margin: 15px 0; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; text-align: center; }
+    button { background-color: #0056b3; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; }
+    .party button { background-color: #ffd700; color: #333; font-weight: bold; }
+    h2 { margin-bottom: 20px; }
+  </style>
+</head>
+<body class="corporate" id="body">
+
+  <div class="container" id="main-container">
+    
+    <!-- Login Section -->
+    <div id="login-section">
+      <h2>HR Onboarding Portal</h2>
+      <p>Please enter your access code to view the offer letter.</p>
+      <input type="password" id="password" placeholder="Access Code">
+      <br>
+      <button onclick="checkPassword()">Login</button>
+      <p id="login-error" class="hidden" style="color:#d9534f; margin-top:10px;">Access denied. Invalid code.</p>
+    </div>
+
+    <!-- Trivia Section -->
+    <div id="trivia-section" class="hidden">
+      <h2>Security Verification</h2>
+      <p style="font-size: 14px; color: #666;">Jawab pertanyaan keamanan berikut untuk membuktikan identitasmu.</p>
+      
+      <div id="q1">
+        <p>1. Apa film dengan ending paling gong?</p>
+        <input type="text" id="ans1">
+        <br><button onclick="checkQ1()">Submit</button>
+      </div>
+      
+      <div id="q2" class="hidden">
+        <p>2. Tempat lari pagi paling ideal jam 6 pagi?</p>
+        <input type="text" id="ans2">
+        <br><button onclick="checkQ2()">Submit</button>
+      </div>
+      
+      <div id="q3" class="hidden">
+        <p>3. Minuman andalan setelah selesai gym?</p>
+        <input type="text" id="ans3">
+        <br><button onclick="checkQ3()">Verify</button>
+      </div>
+      
+      <p id="trivia-error" class="hidden" style="color:#d9534f; margin-top:10px;">Data tidak cocok dengan database kami.</p>
+    </div>
+
+    <!-- Reveal Section -->
+    <div id="reveal-section" class="hidden">
+      <h1 style="color: #ffd700;">🎉 HAPPY BIRTHDAY PRICILIA! 🎉</h1>
+      <p>Selamat ulang tahun! Lupakan dulu urusan kerjaan hari ini, kontrakmu hari ini cuma satu: dirayakan!</p>
+      
+      <!-- Masukkan link video kejutan kamu di bagian href ini -->
+      <a href="LINK_VIDEO_KEJUTAN_KAMU" target="_blank" style="display: inline-block; margin: 20px 0; background: #ffd700; color: #333; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Klik Untuk Buka Kado Digitalmu 🎁</a>
+      
+      <div style="margin-top: 20px;">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2ZRo7axmMPeOvuRV10nUj8?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function checkPassword() {
+      if(document.getElementById('password').value.toLowerCase() === '1191 fl') {
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('trivia-section').classList.remove('hidden');
+        document.getElementById('login-error').classList.add('hidden');
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    }
+    function checkQ1() {
+      if(document.getElementById('ans1').value.toLowerCase().includes('fresh')) {
+        document.getElementById('q1').classList.add('hidden');
+        document.getElementById('q2').classList.remove('hidden');
+        document.getElementById('trivia-error').classList.add('hidden');
+      } else {
+        document.getElementById('trivia-error').classList.remove('hidden');
+      }
+    }
+    function checkQ2() {
+      if(document.getElementById('ans2').value.toLowerCase().includes('kbp')) {
+        document.getElementById('q2').classList.add('hidden');
+        document.getElementById('q3').classList.remove('hidden');
+        document.getElementById('trivia-error').classList.add('hidden');
+      } else {
+        document.getElementById('trivia-error').classList.remove('hidden');
+      }
+    }
+    function checkQ3() {
+      if(document.getElementById('ans3').value.toLowerCase().includes('boost')) {
+        document.getElementById('trivia-section').classList.add('hidden');
+        document.getElementById('reveal-section').classList.remove('hidden');
+        document.getElementById('body').classList.remove('corporate');
+        document.getElementById('body').classList.add('party');
+      } else {
+        document.getElementById('trivia-error').classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
